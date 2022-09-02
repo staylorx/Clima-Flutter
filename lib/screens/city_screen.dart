@@ -21,6 +21,14 @@ class CityScreen extends StatefulWidget {
 }
 
 class CityScreenState extends State<CityScreen> {
+  TextEditingController cityName = TextEditingController();
+
+  @override
+  void initState() {
+    cityName.text = "";
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,7 +46,9 @@ class CityScreenState extends State<CityScreen> {
               Align(
                 alignment: Alignment.topLeft,
                 child: TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pop(context, cityName);
+                  },
                   child: const Icon(
                     Icons.arrow_back_ios,
                     size: 50.0,
@@ -49,11 +59,13 @@ class CityScreenState extends State<CityScreen> {
                 padding: const EdgeInsets.all(20.0),
                 child: null,
               ),
-              TextButton(
-                onPressed: () {},
-                child: const Text(
-                  'Get Weather',
-                  style: kButtonTextStyle,
+              //https://www.fluttercampus.com/guide/80/how-to-set-icon-on-textfield-widget-flutter/
+              TextField(
+                controller: cityName,
+                decoration: const InputDecoration(
+                  labelText: "Enter City Name",
+                  labelStyle: kButtonTextStyle,
+                  icon: Icon(Icons.location_city),
                 ),
               ),
             ],

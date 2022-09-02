@@ -1,4 +1,16 @@
 import 'package:geolocator/geolocator.dart';
+import 'package:logger/logger.dart';
+
+final logger = Logger(
+  printer: PrettyPrinter(
+    methodCount: 0,
+    errorMethodCount: 5,
+    lineLength: 50,
+    colors: true,
+    printEmojis: false,
+    printTime: false,
+  ),
+);
 
 /// Determine the current position of the device.
 ///

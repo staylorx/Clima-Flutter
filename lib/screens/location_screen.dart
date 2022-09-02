@@ -1,3 +1,4 @@
+import 'package:clima/screens/city_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:clima/utilities/constants.dart';
 import 'package:logger/logger.dart';
@@ -21,6 +22,8 @@ class LocationScreen extends StatefulWidget {
 }
 
 class LocationScreenState extends State<LocationScreen> {
+  String cityName = '';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,7 +53,15 @@ class LocationScreenState extends State<LocationScreen> {
                     ),
                   ),
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      final navigator = Navigator.of(context);
+
+                      navigator.push(
+                        MaterialPageRoute(builder: (context) {
+                          return const CityScreen();
+                        }),
+                      );
+                    },
                     child: const Icon(
                       Icons.location_city,
                       size: 50.0,
