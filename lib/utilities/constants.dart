@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 
-const kOpenWeatherAPIKey = '';
-const kOpenWeatherURLBase = '';
+const kOpenWeatherURLBase = 'https://api.openweathermap.org/data/2.5/weather';
 
 const kTempTextStyle = TextStyle(
   fontFamily: 'Spartan MB',
-  fontSize: 100.0,
+  fontSize: 80.0,
 );
 
 const kMessageTextStyle = TextStyle(
@@ -20,10 +18,19 @@ const kButtonTextStyle = TextStyle(
 );
 
 const kConditionTextStyle = TextStyle(
-  fontSize: 100.0,
+  fontSize: 80.0,
 );
 
-const kSpinRotatingCircle = SpinKitRotatingCircle(
-  color: Colors.white,
-  size: 50.0,
+const kTextFieldInputDecoration = InputDecoration(
+  filled: true,
+  fillColor: Colors.white,
+  hintText: "Enter City Name",
+  hintStyle: TextStyle(color: Colors.grey),
+  icon: Icon(Icons.location_city),
+  border: OutlineInputBorder(
+    borderRadius: BorderRadius.all(
+      Radius.circular(10.0),
+    ),
+    borderSide: BorderSide.none,
+  ),
 );

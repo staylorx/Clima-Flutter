@@ -1,17 +1,9 @@
+import 'package:clima/utilities/log_printer.dart';
 import 'package:flutter/material.dart';
 import 'package:clima/utilities/constants.dart';
 import 'package:logger/logger.dart';
 
-final logger = Logger(
-  printer: PrettyPrinter(
-    methodCount: 0,
-    errorMethodCount: 5,
-    lineLength: 50,
-    colors: true,
-    printEmojis: false,
-    printTime: false,
-  ),
-);
+final logger = Logger(printer: MyLogfmtPrinter('city_screen'));
 
 class CityScreen extends StatefulWidget {
   const CityScreen({super.key});
@@ -22,12 +14,6 @@ class CityScreen extends StatefulWidget {
 
 class CityScreenState extends State<CityScreen> {
   TextEditingController cityName = TextEditingController();
-
-  @override
-  void initState() {
-    cityName.text = "";
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +33,7 @@ class CityScreenState extends State<CityScreen> {
                 alignment: Alignment.topLeft,
                 child: TextButton(
                   onPressed: () {
-                    Navigator.pop(context, cityName);
+                    Navigator.pop(context, cityName.text);
                   },
                   child: const Icon(
                     Icons.arrow_back_ios,
@@ -57,15 +43,21 @@ class CityScreenState extends State<CityScreen> {
               ),
               Container(
                 padding: const EdgeInsets.all(20.0),
-                child: null,
+                child: TextField(
+                  controller: cityName,
+                  style: const TextStyle(
+                    color: Colors.black,
+                  ),
+                  decoration: kTextFieldInputDecoration,
+                ),
               ),
-              //https://www.fluttercampus.com/guide/80/how-to-set-icon-on-textfield-widget-flutter/
-              TextField(
-                controller: cityName,
-                decoration: const InputDecoration(
-                  labelText: "Enter City Name",
-                  labelStyle: kButtonTextStyle,
-                  icon: Icon(Icons.location_city),
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context, cityName.text);
+                },
+                child: const Text(
+                  "Get Weather",
+                  style: kButtonTextStyle,
                 ),
               ),
             ],

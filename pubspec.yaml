@@ -15,6 +15,7 @@ dependencies:
   geolocator: ^9.0.1
   logger: ^1.1.0
   flutter_spinkit: ^5.1.0
+  flutter_dotenv: ^5.0.2
 
 dev_dependencies:
   flutter_test:
@@ -26,6 +27,8 @@ flutter:
 
   assets:
   - images/
+  - .env.dev
+  - .env.prod
 
   fonts:
   - family: Spartan MB

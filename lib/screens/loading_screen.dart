@@ -1,18 +1,11 @@
 import 'package:clima/screens/location_screen.dart';
+import 'package:clima/services/weather.dart';
+import 'package:clima/utilities/log_printer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:logger/logger.dart';
 
-final logger = Logger(
-  printer: PrettyPrinter(
-    methodCount: 0,
-    errorMethodCount: 5,
-    lineLength: 50,
-    colors: true,
-    printEmojis: false,
-    printTime: false,
-  ),
-);
+final logger = Logger(printer: MyLogfmtPrinter('loading_screen'));
 
 class LoadingScreen extends StatefulWidget {
   const LoadingScreen({super.key});
@@ -24,22 +17,35 @@ class LoadingScreen extends StatefulWidget {
 class LoadingScreenState extends State<LoadingScreen> {
   @override
   void initState() {
+    getWeather();
     super.initState();
+  }
 
+  void getWeather() async {
     final navigator = Navigator.of(context);
-    navigator.push(
-      MaterialPageRoute(
-        builder: (context) {
-          return const LocationScreen();
-        },
-      ),
-    );
+
+    WeatherModel weatherModel = WeatherModel();
+    await weatherModel.getLocationWeather();
+    logger.d("loading_screen:getWeather: $weatherModel");
+
+    navigator.push(MaterialPageRoute(
+      builder: (context) {
+        return LocationScreen(
+          weatherModel: weatherModel,
+        );
+      },
+    ));
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(child: Container()),
+    return const Scaffold(
+      body: Center(
+        child: SpinKitDoubleBounce(
+          size: 100.0,
+          color: Colors.white,
+        ),
+      ),
     );
   }
 }
